@@ -1,5 +1,5 @@
-/*1. IMPORT EXCEL INTO SQL
-I usef Wizard 2019, somehow Wizard 2022 did not work*/
+/*1. Import Excel into SQL
+I used Wizard 2019, somehow Wizard 2022 did not work*/
 
 /*2. Here are the two datasets*/
 Select *

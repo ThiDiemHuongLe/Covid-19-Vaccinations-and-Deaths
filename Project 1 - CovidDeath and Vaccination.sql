@@ -22,21 +22,20 @@ order by 1,2
 , so deathrate is about 1.97%
 The likelihood of you dying if you contract the virus by ea country*/
 
-/*4. What is the percentage of population got Covid*/
+/*4. What is the percentage of population contracting the virus?*/
 Select Location, date, total_cases, population, (total_cases/population)*100 as CovidRate
 from CovidDeaths$
 where location = 'Canada'
 order by 1,2
+/*As of 30th April 2021, there was 3.25% population contracting Covid*/
 
-/*As of 30th April 2021, there was 3.25% population got Covid*/
-
-/*5. Which country has the highest infection rate compared to population*/
+/*5. Which country has the highest infection rate compared to population?*/
 Select location,population, max(total_cases) as HighestInfectionCountry , max((total_cases/population))*100 as InfectionRate
 from CovidDeaths$
 group by Location, population
 order by InfectionRate desc
 
-/*6. Which country has the highest death count per population*/
+/*6. Which country has the highest death count per population?*/
 Select location,max(cast(total_deaths as int)) as TotalDeathCount
 from CovidDeaths$
 where continent is not null /*to filter out errors of location
@@ -44,11 +43,10 @@ Word Europe - when continent is Null then location is that continent
  - error*/
 group by Location
 order by TotalDeathCount desc
-
 /*So the US is the country who recorded highest number of deaths*/
 
 /*7. Which continent has the highest death count per population*/
-/* better code
+/* Better code
 Select location,max(cast(total_deaths as int)) as TotalDeathCount
 from CovidDeaths$
 where continent is null 
@@ -97,10 +95,10 @@ where dea.continent is not null
 order by 2,3
 
 /*Code explanation:
-- Why Partition by used Location? We want to get the sum by each location
+- Why Partition by Location? We want to get the sum by each location
 or country; then we want it to roll over from this day to next day showing
-totalk; then we want it to stop by each country and start new with new country
-- Cast or Convert - to change data type of var*/
+total; then we want it to stop by each country and start new with new country
+*/
 
 
 /*CTE*/
@@ -122,7 +120,6 @@ Select *,(RollingPeopleVaccinated/population)*100
 from PopvsVac
 
 /*Temp table*/
-
 Create table #PercentPopulationVaccinated
 (Continent nvarchar(255),
 Location nvarchar(255),
